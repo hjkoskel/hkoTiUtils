@@ -1,0 +1,56 @@
+1600 calculator files
+
+Models
+     1600  TI-86
+
+Variable types
+     2149  Program
+      959  Picture
+      275  Real
+      183  String
+       79  Real Matrix
+       74  Real List
+       10  Function GDB
+        8  Equation
+        3  Differential Equation Window Settings
+        3  Function Window Settings
+        3  Parametric Window Settings
+        3  Polar Window Settings
+        3  Saved Window Size (ZRCL)
+        2  Real Vector
+
+Program kinds
+     1234  tokenized
+      539  plain text
+      214  plain text, edit-locked
+      120  tokenized, edit-locked
+       42  assembly
+
+Warnings
+       15  checksum mismatch: stored N, computed N
+       11  N extra bytes after checksum
+        1  data length N but only N bytes in file
+        1  unexpected bytes after signature: NA NC N
+
+Escapes in text output (unknown tokens / glyphs)
+     3730  String ⟦00⟧
+     1790  String ⟦E7⟧
+     1170  String ⟦FF⟧
+     1014  Program ⟦E7⟧
+      336  String ⟦FE⟧
+      335  Program ⟦DF⟧
+      247  Program ⟦8E32⟧
+      160  String ⟦E0⟧
+      126  String ⟦7F⟧
+      104  String ⟦DF⟧
+       92  String ⟦F0⟧
+       91  String ⟦F8⟧
+       72  Program ⟦1B00⟧
+       72  Program ⟦2000⟧
+       69  Program ⟦FF⟧
+       68  String ⟦D5⟧
+       66  String ⟦FC⟧
+       27  Program ⟦0300⟧
+       22  String ⟦F4⟧
+       22  String ⟦FA⟧
+  … 70 more

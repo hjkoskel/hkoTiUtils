@@ -1,0 +1,66 @@
+ClLCD
+Disp ""
+Disp ""
+Disp ""
+Disp ""
+Disp ""
+Disp ""
+0→SCR
+3→TRY
+10→SHIP
+0→AD6
+0→AD5
+0→AD4
+0→AD3
+0→AD2
+Lbl Lbl1
+Disp ""
+Outpt(5,SHIP,"V")
+Outpt(1,1,SCR)
+Outpt(2,1,TRY)
+SCR+1→SCR
+If SCR==500
+TRY+1→TRY
+int rand 17+3→AD
+Outpt(8,AD,"*")
+Outpt(8,int rand 17+3,"*")
+getKy→K
+If K==21:KK
+If K==22:Goto Lbl2
+AD4→AD5:AD3→AD4
+AD2→AD3:AD→AD2
+If AD5==SHIP
+Goto Lbl3
+Lbl Lbl4
+If TRY≤0
+Goto Lbl2
+Outpt(5,SHIP,"Δ")
+If K==24
+SHIP-1→SHIP
+If K==26
+SHIP+1→SHIP
+If SHIP≤2 or SHIP≥20:Then
+10→SHIP
+TRY-1→TRY
+Outpt(1,1,"YOU FELL OFF)"
+WAIT
+End
+Goto Lbl1
+Lbl Lbl3
+TRY-1→TRY
+Outpt(5,SHIP,"O")
+WAITV
+Outpt(5,SHIP-1,"( )")
+WAITV
+Outpt(5,SHIP-2,"((o))")
+WAITV
+Goto Lbl4
+Lbl Lbl2
+ClLCD
+Disp "GAME OVER"
+Disp "SCORE:"
+Disp SCR
+Disp "HISCORE:"
+Disp HSA
+If SCR>HSA
+SCR→HSA

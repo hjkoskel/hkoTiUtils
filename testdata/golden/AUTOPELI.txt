@@ -1,0 +1,50 @@
+8→xRes
+0→xMin
+10→xMax
+0→yMin
+10→yMax
+AxesOff
+5→X
+2→Y
+0→Z
+0→C
+0→I
+0→N
+0→M
+0→T
+ClDrw
+Circl(5,5,3)
+Circl(5,5,5)
+Lbl AUTO
+PtOn(X+cos Z,Y+sin Z)
+int(9*(X+cos Z))→M
+int(9*(Y+sin Z))→N
+PtOff(A+cos C,B+sin C)
+PtOn((X+0.01),(Y+0.01))
+PtOff((A+0.01),(B+0.01))
+X→A
+Y→B
+Z→C
+PxTest(N,M)→T
+If T==1
+Goto LOPPU
+
+getKy→N
+If N==24
+Z+20→Z
+
+If N==26
+Z-20→Z
+
+If N==22
+Goto LOPPU
+
+(X+cos Z)→X
+(Y+sin Z)→Y
+
+I+1→I
+Text(1,1,I
+Goto AUTO
+
+Lbl LOPPU
+Outpt(1,1,"GAME OVER")

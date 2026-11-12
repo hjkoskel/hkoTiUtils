@@ -1,0 +1,270 @@
+Lbl NEW
+
+ClDrw
+AxesOff
+GridOff
+FnOff
+RcPic MINEPIC1
+
+Lbl MAIN
+ClLCD
+DispG
+Menu(1,"Play",PLAY,2,"Custm",CUSTM,3,"Data",DATA,4,"Reset",RESET,5,"Exit",EXIT)
+
+Lbl DATA
+For(A,1,6
+MINEDATA((A-1)*4+1)→B
+MINEDATA((A+5)*4+1)→C
+Outpt(A,1,A
+Outpt(A,2,".  [ ]"
+If B==1
+Outpt(A,6,"*"
+Outpt(A,12,A+6
+If A+6<10
+Outpt(A,13,".  [ ]"
+If A+6>9
+Outpt(A,14,". [ ]"
+If C==1
+Outpt(A,17,"*"
+End
+Pause
+Goto MAIN
+
+Lbl RESET
+Disp "Are you sure you want","to Reset all Data?"
+Menu(1,"Yes",YES,5,"No",MAIN)
+
+Lbl YES
+{0,8,6,4,0,8,8,6,0,10,8,10,0,10,10,11,0,9,9,10,0,12,10,16,0,10,10,14,0,12,10,18,0,11,10,18,0,12,10,21,0,12,10,24,0,12,10,30}→MINEDATA
+Goto MAIN
+
+Lbl PLAY
+Input "Level(1-12): ",L
+If L<1 or L>12
+Goto PLAY
+(L-1)*4→B
+MINEDATA(B+1)→C
+MINEDATA(B+2)→N
+MINEDATA(B+3)→M
+MINEDATA(B+4)→Z
+Disp "Length:","Width:","Mines:","Percent:   %","Complete:","Level Loading..."
+Outpt(2,9,N
+Outpt(3,8,M
+Outpt(4,8,Z
+Outpt(5,10,100*round(Z/(M*N),2)
+If C==0
+Outpt(6,11,"NO"
+If C==1
+Outpt(6,11,"YES"
+Goto START
+
+Lbl CUSTM
+0→L
+Input "Lenghth: ",N
+Input "Width: ",M
+Input "Mines: ",Z
+If N>12 or N<1 or M>10 or M<1 or Z≥M*N
+Goto CUSTM
+
+Lbl START
+{M+2,N+2}→dim MINE1
+{M+2,N+2}→dim MINE2
+Fill(0,MINE1)
+Fill(0,MINE2)
+
+0→H
+Repeat H==Z
+randInt(2,M+1)→A
+randInt(2,N+1)→B
+If MINE1(A,B)>8
+End
+9→MINE1(A,B)
+1→MINE2(A,B)
+MINE1(A-1,B-1)+1→MINE1(A-1,B-1)
+MINE1(A,B-1)+1→MINE1(A,B-1)
+MINE1(A+1,B-1)+1→MINE1(A+1,B-1)
+MINE1(A-1,B)+1→MINE1(A-1,B)
+MINE1(A+1,B)+1→MINE1(A+1,B)
+MINE1(A-1,B+1)+1→MINE1(A-1,B+1)
+MINE1(A,B+1)+1→MINE1(A,B+1)
+MINE1(A+1,B+1)+1→MINE1(A+1,B+1)
+H+1→H
+End
+
+ClLCD
+ClDrw
+For(A,1,M*6,6
+For(B,1,N*6,6
+Text(A,B,"[]"
+PxOn(A+1,B+2
+PxOn(A+5,B+2
+End
+End
+RcPic MINEPIC2
+If L<10
+Text(19,113,L
+If L>9
+Text(19,109,L
+If L==0
+Text(19,103,"Custm"
+If Z<10
+Text(32,119,Z
+If Z>9
+Text(32,115,Z
+If N<10
+Text(53,91,N
+If N>9
+Text(53,87,N
+If M<10
+Text(53,111,M
+If M>9
+Text(53,107,M
+1→A
+0→B
+2→C
+2→D
+0→F
+0→G
+PxOn(A,B
+PxOn(A+6,B
+PxOn(A,B+6
+PxOn(A+6,B+6
+
+While 1
+Repeat K
+getKy→K
+End
+If K==26
+Goto RIGHT
+If K==24
+Goto LEFT
+If K==34
+Goto DOWN
+If K==25
+Goto UP
+Goto CONT
+End
+
+Lbl RIGHT
+If D<N+1:Then
+PxOff(A,B
+PxOff(A+6,B
+B+6→B
+D+1→D
+PxOn(A,B+6
+PxOn(A+6,B+6
+End
+End
+
+Lbl LEFT
+If D>2:Then
+PxOff(A,B+6
+PxOff(A+6,B+6
+B-6→B
+D-1→D
+PxOn(A,B
+PxOn(A+6,B
+End
+End
+
+Lbl DOWN
+If C<M+1:Then
+PxOff(A,B
+PxOff(A,B+6
+A+6→A
+C+1→C
+PxOn(A+6,B
+PxOn(A+6,B+6
+End
+End
+
+Lbl UP
+If C>2:Then
+PxOff(A+6,B
+PxOff(A+6,B+6
+A-6→A
+C-1→C
+PxOn(A,B
+PxOn(A,B+6
+End
+End
+
+Lbl CONT
+If K==21 and MINE2(C,D)<2:Then
+MINE1(C,D)→H
+Text(A,B+1,"     "
+If H>8
+Goto LOSE
+Text(A,B+2,H
+End
+
+If K==31:Then
+MINE2(C,D)→H
+Text(A,B+1,"     "
+If H==0:Then
+Text(A,B+2,"F"
+PxOn(A+2,B+3
+PxOn(A+2,B+4
+PxOn(A+3,B+4
+2→MINE2(C,D)
+F+1→F
+End
+If H==1:Then
+Text(A,B+2,"F"
+PxOn(A+2,B+3
+PxOn(A+2,B+4
+PxOn(A+3,B+4
+3→MINE2(C,D)
+G+1→G
+End
+If H==2:Then
+Text(A,B+1,"[]"
+PxOn(A+1,B+3
+PxOn(A+5,B+3
+PxOn(A,B+6
+0→MINE2(C,D)
+F-1→F
+End
+If H==3:Then
+Text(A,B+1,"[]"
+PxOn(A+1,B+3
+PxOn(A+5,B+3
+PxOn(A,B+6
+1→MINE2(C,D)
+G-1→G
+End
+If F+G<10:Then
+Text(32,103,"0"
+Text(32,107,F+G
+End
+If F+G>9
+Text(32,103,F+G
+If G==Z and F==0
+Goto WIN
+End
+If K==22
+Goto EXIT
+If K==23
+Pause
+End
+
+
+Lbl WIN
+ClDrw
+RcPic MINEPIC3
+If L>0
+1→MINEDATA((L-1)*4+1)
+Pause
+Goto NEW
+
+Lbl LOSE
+ClDrw
+RcPic MINEPIC4
+Pause
+Goto NEW
+
+Lbl EXIT
+ClDrw
+DelVar(MINE1
+DelVar(MINE2
+ClLCD

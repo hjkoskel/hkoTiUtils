@@ -1,0 +1,175 @@
+ClLCD
+1→A
+1→B
+1→C
+1→D
+1→T
+0→ET
+0→MA
+0→MB
+0→MC
+0→MD
+0→AST
+0→BST
+0→CST
+0→DST
+0→S
+0→AW
+0→BW
+0→CW
+0→DW
+1→TA
+1→TB
+1→TC
+1→TD
+Outpt(1,6,"Bar Tapper"
+Outpt(2,5,"by Logan Byam"
+Outpt(5,1,"Up/Down moves"
+Outpt(6,1,"Left slides mug"
+Outpt(7,1,"Enter pauses"
+Pause
+ClLCD
+Outpt(2,1,"IIIIIIIIIIIIIIIIIII"
+Outpt(4,1,"IIIIIIIIIIIIIIIIIII"
+Outpt(6,1,"IIIIIIIIIIIIIIIIIII"
+Outpt(8,1,"IIIIIIIIIIIIIIIIIII"
+Outpt(1,A,"A"
+Outpt(3,B,"A"
+Outpt(5,C,"A"
+Outpt(7,D,"A"
+Outpt(T,20,"R"
+Outpt(1,19-MA,"D"
+Outpt(3,19-MB,"D"
+Outpt(5,19-MC,"D"
+Outpt(7,19-MD,"D"
+Pause
+Lbl M
+ET+1→ET
+Outpt(8,11,ET)
+Outpt(8,1,S)
+If 19-MA≤A:Then:1→A:0→AST:S+1→S:Outpt(1,19-MA,"  "):0→MA:Outpt(1,19,"D"):1→AW:End
+If 19-MB≤B:Then:1→B:0→BST:S+1→S:Outpt(3,19-MB,"  "):0→MB:Outpt(3,19,"D"):1→BW:End
+If 19-MC≤C:Then:1→C:0→CST:S+1→S:Outpt(5,19-MC,"  "):0→MC:Outpt(5,19,"D"):1→CW:End
+If 19-MD≤D:Then:1→A:0→AST:S+1→S:Outpt(7,19-MD,"  "):0→MD:Outpt(7,19,"D"):1→DW:End
+getKy→K
+If K==25
+Then
+Outpt(T,20," ")
+T-2→T
+If T≤0
+Then
+1→T
+End
+Outpt(T,20,"R"
+End
+If K==34
+Then
+Outpt(T,20," "
+T+2→T
+If T≥9
+Then
+7→T
+End
+Outpt(T,20,"R"
+End
+If K==22:Then:Goto E:End
+If K==105:Then:Pause:End
+If K==24:Then
+If T==1:Then:1→AST:End
+If T==3:Then:1→BST:End
+If T==5:Then:1→CST:End
+If T==7:Then:1→DST:End
+End
+Outpt(1,A," "):A+1→A:Outpt(1,A,"A"
+Outpt(3,B," "):B+1→B:Outpt(3,B,"A"
+Outpt(5,C," "):C+1→C:Outpt(5,C,"A"
+Outpt(7,D," "):D+1→D:Outpt(7,D,"A"
+If AST==1
+Then
+Outpt(1,19-MA," "
+MA+1→MA
+Outpt(1,19-MA,"D"
+End
+If BST==1
+Then
+Outpt(3,19-MB," "
+MB+1→MB
+Outpt(3,19-MB,"D"
+End
+If CST==1
+Then
+Outpt(5,19-MC," "
+MC+1→MC
+Outpt(5,19-MC,"D"
+End
+If DST==1
+Then
+Outpt(7,19-MD," "
+MD+1→MD
+Outpt(7,19-MD,"D"
+End
+If A==19 or B==19 or C==19 or D==19:Then:Goto E:End
+If AW==1:Then:Outpt(2,TA,"II"):TA+1→TA:Outpt(2,TA,"I$"):End
+If BW==1:Then:Outpt(4,TB,"II"):TB+1→TB:Outpt(4,TB,"I$"):End
+If CW==1:Then:Outpt(6,TC,"II"):TC+1→TC:Outpt(6,TC,"I$"):End
+If DW==1:Then:Outpt(8,TD,"II"):TD+1→TD:Outpt(8,TD,"I$"):End
+If TA==19
+Then
+If T==1
+Then
+0→AW
+Outpt(2,20,"  "
+S+3→S
+1→TA
+End
+Outpt(2,20,"  "
+1→TA
+End
+If TB==19
+Then
+If T==3
+Then
+0→BW
+Outpt(4,20,"  "
+S+3→S
+1→TB
+End
+Outpt(4,20,"  "
+1→TB
+End
+If TC==19
+Then
+If T==5
+Then
+0→CW
+Outpt(6,20,"  "
+S+3→S
+1→TC
+End
+Outpt(6,20,"  "
+1→TC
+End
+If TD==19
+Then
+If T==7
+Then
+0→DW
+Outpt(8,20,"  "
+S+3→S
+1→TD
+End
+1→TD
+Outpt(8,20,"  "
+End
+Goto M
+Lbl E
+ClLCD
+Outpt(3,4,"Sorry, you lost"
+Outpt(5,8,"Score:"):Outpt(5,15,S)
+Outpt(6,9,"Time:"):Outpt(6,15,ET)
+Outpt(7,6,"Overall:"):Outpt(7,15,int 100(S/ET)):Outpt(7,17,"%")
+Stop
+Copyright 1997 Logan Byam. This program may be freely distributed. If you like this program enough to pay for it, all donations are welcome at:
+Logan Byam
+RR1 Box 455A
+Kinsale, VA 22488
